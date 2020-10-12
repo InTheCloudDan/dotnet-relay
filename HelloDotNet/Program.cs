@@ -16,9 +16,12 @@ namespace HelloDotNet
             };
             LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(props);
 
-            Configuration ldConfig = LaunchDarkly.Client.Configuration
-                    // TODO: Enter your LaunchDarkly SDK key here
-                    .Default("YOUR_SDK_KEY");
+            Configuration ldConfigGood = LaunchDarkly.Client.Configuration.Default("SDK_KEY")
+                .WithBaseUri("BASE_URI")
+                .WithStreamUri("STREAM_URI")
+                .WithEventsUri("EVENTS_URI");
+
+            Configuration ldConfigBad = LaunchDarkly.Client.Configuration.Default("SDK_KEY")
 
             LdClient client = new LdClient(ldConfig);
             User user = User.Builder("bob@example.com")
